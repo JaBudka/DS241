@@ -59,7 +59,23 @@ The datasets we'll use are called `dennys` and `laquinta` from the **dsbox** pac
 #states <- read_csv("data/states.csv")
 dn=dennys
 lq =laquinta
- 
+ nrow(dennys)
+ nrow(laquinta)
+```
+
+```{r}
+fast_food <- read_csv("U:/DataScience/ds241/FastFoodRestaurants.csv")
+View(fast_food)
+```
+
+```{r}
+mcdonalds <- fast_food %>%
+  filter(grepl('mcdonalds', websites) & grepl('Mc', name))
+View(mcdonalds)
+```
+
+```{r}
+nrow(mcdonalds)
 ```
 
 
