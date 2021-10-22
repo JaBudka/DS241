@@ -1,5 +1,5 @@
 ---
-title: "Lab 04 - La Quinta is Spanish for next to Denny's, Pt. 1"
+title: "Lab 04 - La Quinta is Spanish for next to Denny's, Part 1"
 author: "Jackie Budka"
 date: "10/8/2021"
 output: html_notebook
