@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Data from the 2016 General Social Survey (GSS)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gss16 {dsbox}"><tr><td>gss16 {dsbox}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Data from the 2016 General Social Survey (GSS)</h2>
+
+<h3>Description</h3>
+
+<p>The GSS gathers data on contemporary American society in order to monitor and
+explain trends and constants in attitudes, behaviors, and attributes.
+Hundreds of trends have been tracked since 1972. In addition, since the GSS
+adopted questions from earlier surveys, trends can be followed for up to 70 years.
+The GSS contains a standard core of demographic, behavioral, and attitudinal
+questions, plus topics of special interest. Among the topics covered are civil
+liberties, crime and violence, intergroup tolerance, morality, national spending
+priorities, psychological well-being, social mobility, and stress and traumatic events.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+gss16
+</pre>
+
+
+<h3>Format</h3>
+
+<p>An object of class <code>tbl_df</code> (inherits from <code>tbl</code>, <code>data.frame</code>) with 2867 rows and 9 columns.
+</p>
+
+<dl>
+<dt>harass5</dt><dd><p>Response to the questions &quot;Over the past five years, have you been harassed by your superiors or co-workers at your job, for example, have you experienced any bullying, physical or psychological abuse?&quot; Possible answers are Yes, No and Does not apply.</p>
+</dd>
+<dt>emailmin</dt><dd><p>Number of minutes spent on email weekly, extra to the hours in emailhrs (e.g. emailmin = 30 for 2.5 hours on email).</p>
+</dd>
+<dt>emailhr</dt><dd><p>Number of hours spent on email weekly.</p>
+</dd>
+<dt>educ</dt><dd><p>Number of years in education.</p>
+</dd>
+<dt>polviews</dt><dd><p>Political views. Possible answers are Extremely liberal, Liberal, Slightly liberal, Moderate, Slghtly conservative, Conservative, Extrmly conservative.</p>
+</dd>
+<dt>advfront</dt><dd><p>Response to the question &quot;Even if it brings no immediate benefits, scientific research that advances the frontiers of knowledge is necessary and should be supported by the federal government.&quot; Possible answers are Strongly agree, Agree, Dont know, Disagree and Strongly Disagree.</p>
+</dd>
+<dt>snapchat</dt><dd><p>Whether respondant uses Snapchat or not.</p>
+</dd>
+<dt>instagram</dt><dd><p>Whether respondant uses Instagram or not.</p>
+</dd>
+<dt>wrkstat</dt><dd><p>Work status.</p>
+</dd>
+</dl>
+
+
+
+<h3>Details</h3>
+
+<p>The data come from the <a href="https://gss.norc.org/Get-The-Data">NORC at the University of Chicago</a>
+</p>
+<p>The data has been modified to better serve the goals of introductory data science education.
+Only 9 of the original 935 variables have been selected for this dataset.
+</p>
+
+
+<h3>Source</h3>
+
+<p>https://gss.norc.org/Get-The-Data
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+library(ggplot2)
+library(dplyr)
+
+gss16 %&gt;%
+  mutate(email = (emailhr * 60) + emailmin) %&gt;%
+  ggplot(aes(x = email)) +
+  geom_histogram(binwidth = 60) +
+  labs(x = "Time spent on email (in minutes)")
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>dsbox</em> version 0.1.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

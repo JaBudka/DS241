@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Airbnb Listings in Edinburgh</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for edibnb {dsbox}"><tr><td>edibnb {dsbox}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Airbnb Listings in Edinburgh</h2>
+
+<h3>Description</h3>
+
+<p>Recent developments in Edinburgh regarding the growth of Airbnb and its
+impact on the housing market means a better understanding of the Airbnb
+listings is needed. Using data provided by Airbnb, we can explore how Airbnb
+availability and prices vary by neighbourhood.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+edibnb
+</pre>
+
+
+<h3>Format</h3>
+
+<p>A tibble with 13,245 rows and 10 variables:
+</p>
+
+<dl>
+<dt>id</dt><dd><p>ID number of the listing</p>
+</dd>
+<dt>price</dt><dd><p>Price, in GBP, for one night stay</p>
+</dd>
+<dt>neighbourhood</dt><dd><p>Neighbourhood listing is located in</p>
+</dd>
+<dt>accommodates</dt><dd><p>Number of people listing accommodates</p>
+</dd>
+<dt>bathrooms</dt><dd><p>Number of bathrooms</p>
+</dd>
+<dt>bedrooms</dt><dd><p>Number of bedrooms</p>
+</dd>
+<dt>beds</dt><dd><p>Number of beds (which can be different than the number of bedrooms)</p>
+</dd>
+<dt>review_scores_rating</dt><dd><p>Average rating of property</p>
+</dd>
+<dt>number_of_reviews</dt><dd><p>Number of reviews</p>
+</dd>
+<dt>listing_url</dt><dd><p>Listing URL</p>
+</dd>
+</dl>
+
+
+
+<h3>Details</h3>
+
+<p>The data come from the
+<a href="https://www.kaggle.com/thoroc/edinburgh-inside-airbnb/version/2">Kaggle database</a>,
+and was originally distributed by
+<a href="http://insideairbnb.com/get-the-data.html">Inside Airbnb</a> on 25 June 2019.
+</p>
+<p>The data has been modified to better serve the goals of introductory data science education.
+</p>
+
+
+<h3>Source</h3>
+
+<p>https://www.kaggle.com/thoroc/edinburgh-inside-airbnb/version/2
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+library(ggplot2)
+
+ggplot(edibnb, aes(x = price)) +
+  geom_histogram(binwidth = 50)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>dsbox</em> version 0.1.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,45 @@
+Package: dsbox
+Type: Package
+Title: Data Science Course in a Box
+Version: 0.1.1
+Authors@R: c(
+    person("Mine", "\u00C7etinkaya-Rundel", email = "mine@rstudio.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-6452-2420")),
+    person("Lee", "Suddaby", email = "leesuddaby@gmail.com", role = c("ctb")),
+    person("Zeno", "Kujawa", email = "zeno.kujawa@gmail.com", role = c("ctb")),
+    person("RStudio", role = c("cph", "fnd"))
+    )
+Description: Datasets accompanying Data Science Course in a Box, an 
+    introductory data science course for students who are new to R, data 
+    science, and statistics.
+Encoding: UTF-8
+LazyData: true
+Imports: learnr, scales, tidyverse, robotstxt, rvest, DT, tidymodels,
+        fivethirtyeight, gradethis (>= 0.1.0.9004)
+Suggests: dplyr, ggplot2, tibble
+Depends: R (>= 2.10)
+License: MIT + file LICENSE
+URL: https://rstudio-education.github.io/dsbox,
+        https://github.com/rstudio-education/dsbox
+BugReports: https://github.com/rstudio-education/dsbox/issues
+RoxygenNote: 7.1.1
+Roxygen: list(markdown = TRUE)
+Remotes: rstudio-education/gradethis
+RemoteType: github
+RemoteHost: api.github.com
+RemoteRepo: dsbox
+RemoteUsername: rstudio-education
+RemoteRef: HEAD
+RemoteSha: 646bb9e6a3328cc0a4ea120a87540b5115f85f82
+GithubRepo: dsbox
+GithubUsername: rstudio-education
+GithubRef: HEAD
+GithubSHA1: 646bb9e6a3328cc0a4ea120a87540b5115f85f82
+NeedsCompilation: no
+Packaged: 2021-10-06 13:47:46 UTC; budkaj
+Author: Mine Çetinkaya-Rundel [aut, cre]
+    (<https://orcid.org/0000-0001-6452-2420>),
+  Lee Suddaby [ctb],
+  Zeno Kujawa [ctb],
+  RStudio [cph, fnd]
+Maintainer: Mine Çetinkaya-Rundel <mine@rstudio.com>
+Built: R 4.0.3; ; 2021-10-06 13:47:47 UTC; windows

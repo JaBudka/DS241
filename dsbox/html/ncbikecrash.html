@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: North Carolina Bicycle Crash Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ncbikecrash {dsbox}"><tr><td>ncbikecrash {dsbox}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>North Carolina Bicycle Crash Data</h2>
+
+<h3>Description</h3>
+
+<p>All North Carolina bike crash data from 2007-2014. Data downloaded on
+Sep 6, 2018.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ncbikecrash
+</pre>
+
+
+<h3>Format</h3>
+
+<p>A tibble with 7467 rows and 66 variables:
+</p>
+
+<dl>
+<dt>object_id</dt><dd><p>Crash ID</p>
+</dd>
+<dt>city</dt><dd><p>City of crash</p>
+</dd>
+<dt>county</dt><dd><p>County of crash</p>
+</dd>
+<dt>region</dt><dd><p>Region of crash</p>
+</dd>
+<dt>development</dt><dd><p>Development area of crash</p>
+</dd>
+<dt>locality</dt><dd><p>Locality of crash</p>
+</dd>
+<dt>on_road</dt><dd><p>Road where crash happened</p>
+</dd>
+<dt>rural_urban</dt><dd><p>Whether crash happened on rural or urban road</p>
+</dd>
+<dt>speed_limit</dt><dd><p>Speed limit where crash happened</p>
+</dd>
+<dt>traffic_control</dt><dd><p>Type of traffic control where crash happened</p>
+</dd>
+<dt>weather</dt><dd><p>Weather at the time of crash</p>
+</dd>
+<dt>workzone</dt><dd><p>Whether crash happened in a work zone</p>
+</dd>
+<dt>bike_age</dt><dd><p>Age of biker</p>
+</dd>
+<dt>bike_age_group</dt><dd><p>Age group of biker</p>
+</dd>
+<dt>bike_alc_drug</dt><dd><p>Whether biker had alcohol or drugs</p>
+</dd>
+<dt>bike_alcohol</dt><dd><p>Whether biker had alcohol</p>
+</dd>
+<dt>bike_direction</dt><dd><p>Direction of bike at the time of crash</p>
+</dd>
+<dt>bike_injury</dt><dd><p>Injury of biker</p>
+</dd>
+<dt>bike_position</dt><dd><p>Position of bike at the time of crash</p>
+</dd>
+<dt>bike_race</dt><dd><p>Race of biker</p>
+</dd>
+<dt>bike_sex</dt><dd><p>Sex of biker</p>
+</dd>
+<dt>driver_age</dt><dd><p>Age of driver</p>
+</dd>
+<dt>driver_age_group</dt><dd><p>Age group of driver</p>
+</dd>
+<dt>driver_alcohol</dt><dd><p>Whether driver had alcohol</p>
+</dd>
+<dt>driver_alcohol_drugs</dt><dd><p>Whether driver had alcohol or drugs</p>
+</dd>
+<dt>driver_est_speed</dt><dd><p>Estimated speed of driver</p>
+</dd>
+<dt>driver_injury</dt><dd><p>Injury of driver</p>
+</dd>
+<dt>driver_race</dt><dd><p>Race of driver</p>
+</dd>
+<dt>driver_sex</dt><dd><p>Sex of driver</p>
+</dd>
+<dt>driver_vehicle_type</dt><dd><p>Type of vehicle involved in crash</p>
+</dd>
+<dt>crash_alcohol</dt><dd><p>Whether alcohol was involved in crash</p>
+</dd>
+<dt>crash_date</dt><dd><p>Date of crash</p>
+</dd>
+<dt>crash_day</dt><dd><p>Day of crash</p>
+</dd>
+<dt>crash_group</dt><dd><p>Type of crash</p>
+</dd>
+<dt>crash_hour</dt><dd><p>Hour of crash</p>
+</dd>
+<dt>crash_location</dt><dd><p>Location of crash</p>
+</dd>
+<dt>crash_month</dt><dd><p>Month of crash</p>
+</dd>
+<dt>crash_severity</dt><dd><p>Severity of crash</p>
+</dd>
+<dt>crash_time</dt><dd><p>Time of crash</p>
+</dd>
+<dt>crash_type</dt><dd><p>Type of crash</p>
+</dd>
+<dt>crash_year</dt><dd><p>Year of crash</p>
+</dd>
+<dt>ambulance_req</dt><dd><p>Whether ambulance was required</p>
+</dd>
+<dt>hit_run</dt><dd><p>Whether accident was a hit and run</p>
+</dd>
+<dt>light_condition</dt><dd><p>Light condition at the time of crash</p>
+</dd>
+<dt>road_character</dt><dd><p>Road characteristics</p>
+</dd>
+<dt>road_class</dt><dd><p>Road class</p>
+</dd>
+<dt>road_condition</dt><dd><p>Road condition</p>
+</dd>
+<dt>road_configuration</dt><dd><p>Road configuration</p>
+</dd>
+<dt>road_defects</dt><dd><p>Road defects</p>
+</dd>
+<dt>road_feature</dt><dd><p>Road feature</p>
+</dd>
+<dt>road_surface</dt><dd><p>Road surface</p>
+</dd>
+<dt>num_bikes_ai</dt><dd></dd>
+<dt>num_bikes_bi</dt><dd></dd>
+<dt>num_bikes_ci</dt><dd></dd>
+<dt>num_bikes_ki</dt><dd></dd>
+<dt>num_bikes_no</dt><dd></dd>
+<dt>num_bikes_to</dt><dd></dd>
+<dt>num_bikes_ui</dt><dd></dd>
+<dt>num_lanes</dt><dd><p>Number of lanes</p>
+</dd>
+<dt>num_units</dt><dd></dd>
+<dt>distance_mi_from</dt><dd></dd>
+<dt>frm_road</dt><dd></dd>
+<dt>rte_invd_cd</dt><dd></dd>
+<dt>towrd_road</dt><dd></dd>
+<dt>geo_point</dt><dd><p>Latitude and longitude of crash</p>
+</dd>
+<dt>geo_shape</dt><dd></dd>
+</dl>
+
+
+
+<h3>Source</h3>
+
+<p>https://opendurham.nc.gov/explore/dataset/north_carolina_bicycle_crash_data_heatmap_/table/
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ncbikecrash
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>dsbox</em> version 0.1.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

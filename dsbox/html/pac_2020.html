@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Foreign-Connected PAC Contributions, 2020, clean data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pac_2020 {dsbox}"><tr><td>pac_2020 {dsbox}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Foreign-Connected PAC Contributions, 2020, clean data</h2>
+
+<h3>Description</h3>
+
+<p>Every election cycle brings its own brand of excitement – and lots of money.
+Political donations are of particular interest to political scientists and
+other researchers studying politics and voting patterns.
+They are also of interest to citizens who want to stay informed of how much
+money their candidates raise and where that money comes from.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+pac_2020
+</pre>
+
+
+<h3>Format</h3>
+
+<p>A tibble with 226 rows and 6 variables:
+</p>
+
+<dl>
+<dt>name</dt><dd><p>Name of company (American divisions of a foreign company)</p>
+</dd>
+<dt>country</dt><dd><p>Country of origin</p>
+</dd>
+<dt>parent</dt><dd><p>PAC parent company</p>
+</dd>
+<dt>total</dt><dd><p>Total PAC contributions to all parties</p>
+</dd>
+<dt>dems</dt><dd><p>PAC contributions to the Democratic Party</p>
+</dd>
+<dt>repubs</dt><dd><p>PAC contributions to the Republican Party</p>
+</dd>
+</dl>
+
+
+
+<h3>Details</h3>
+
+<p>In the United States, “only American citizens (and immigrants with green
+cards) can contribute to federal politics, but the American divisions of
+foreign companies can form political action committees (PACs) and collect
+contributions from their American employees.” (Source: <a href="https://www.opensecrets.org/political-action-committees-pacs/foreign-connected-pacs">OpenSecrets.org</a>)
+</p>
+<p>The data come from the
+<a href="https://www.opensecrets.org/political-action-committees-pacs/foreign-connected-pacs">OpenSecrets.org</a>.
+</p>
+<p>The data were scraped from the OpenSecrets.org website in June 2020.
+It is part of a series of similar datasets in this package consisting of
+datasets collected from OpenSecrets via webscraping.
+</p>
+<p>This particular dataset consists of the data for foreign-connected PAC
+contributions for the 2020 election cycle, with some cleaning also done to
+make it more accessible in introductory data science education.
+</p>
+
+
+<h3>Source</h3>
+
+<p>https://www.opensecrets.org/political-action-committees-pacs/foreign-connected-pacs
+</p>
+
+
+<h3>See Also</h3>
+
+<p>pac_2020_raw, pac_all, pac_all_raw
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+library(tibble)
+
+glimpse(pac_2020)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>dsbox</em> version 0.1.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

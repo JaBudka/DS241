@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Sales of Lego sets (simulated)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for lego_sales {dsbox}"><tr><td>lego_sales {dsbox}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Sales of Lego sets (simulated)</h2>
+
+<h3>Description</h3>
+
+<p>Simulated data based on real prices for Lego sales in 2018 in the United States.
+Names and hobbies have been randomly generated
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+lego_sales
+</pre>
+
+
+<h3>Format</h3>
+
+<p>A tibble with 620 rows and 14 variables:
+</p>
+
+<dl>
+<dt>first_name</dt><dd><p>First name of customer</p>
+</dd>
+<dt>last_name</dt><dd><p>Last name of customer</p>
+</dd>
+<dt>age</dt><dd><p>Age of customer</p>
+</dd>
+<dt>phone_number</dt><dd><p>Phone number of customer</p>
+</dd>
+<dt>set_id</dt><dd><p>Set ID of lego set purchased</p>
+</dd>
+<dt>number</dt><dd><p>Item number of lego set purchased</p>
+</dd>
+<dt>theme</dt><dd><p>Theme of lego set purchased</p>
+</dd>
+<dt>subtheme</dt><dd><p>Sub theme of lego set purchased</p>
+</dd>
+<dt>year</dt><dd><p>Year of purchase</p>
+</dd>
+<dt>name</dt><dd><p>Name of lego set purchased</p>
+</dd>
+<dt>pieces</dt><dd><p>Number of pieces of legos in set purchased</p>
+</dd>
+<dt>us_price</dt><dd><p>Price of set purchase in US Dollars</p>
+</dd>
+<dt>image_url</dt><dd><p>Image URL of lego set purchased</p>
+</dd>
+<dt>quantity</dt><dd><p>Quantity of lego set(s) purchased</p>
+</dd>
+</dl>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+
+library(dplyr)
+
+lego_sales %&gt;%
+  count(first_name, sort = TRUE) %&gt;%
+  top_n(3)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>dsbox</em> version 0.1.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

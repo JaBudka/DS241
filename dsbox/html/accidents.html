@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Road Safety Data - Accidents 2018</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for accidents {dsbox}"><tr><td>accidents {dsbox}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Road Safety Data - Accidents 2018</h2>
+
+<h3>Description</h3>
+
+<p>Road accidents and their causes are of particular importance to road safety experts
+looking to prevent them.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+accidents
+</pre>
+
+
+<h3>Format</h3>
+
+<p>A tibble with 768 rows and 31 variables:
+</p>
+
+<dl>
+<dt>id</dt><dd><p>Accident ID</p>
+</dd>
+<dt>easting</dt><dd><p>Easting of accident location</p>
+</dd>
+<dt>northing</dt><dd><p>Northing of accident location</p>
+</dd>
+<dt>longitude</dt><dd><p>Longitude of accident location</p>
+</dd>
+<dt>latitude</dt><dd><p>Latitude of accident location</p>
+</dd>
+<dt>police_force</dt><dd><p>Police force</p>
+</dd>
+<dt>severity</dt><dd><p>Accident severity: Fatal, Serious, Slight</p>
+</dd>
+<dt>vehicles</dt><dd><p>Number of vehicles involved in accident</p>
+</dd>
+<dt>casualties</dt><dd><p>Number of people injured in the accident</p>
+</dd>
+<dt>date</dt><dd><p>Date of the accident</p>
+</dd>
+<dt>day_of_week</dt><dd><p>Day of the week of the accident</p>
+</dd>
+<dt>time</dt><dd><p>Time of the accident on the 24h clock</p>
+</dd>
+<dt>district</dt><dd><p>Local authority district</p>
+</dd>
+<dt>highway</dt><dd><p>Local authority highway</p>
+</dd>
+<dt>first_road_class</dt><dd><p>Class of 1st road involved in accident: Motorway, A(M) road (A-road with motorway restrictions), A-road, B-road, C-road, Unclassified</p>
+</dd>
+<dt>first_road_number</dt><dd><p>ID of 1st road (0 if unclassified)</p>
+</dd>
+<dt>road_type</dt><dd><p>Type of road: Roundabout, One way street, Dual carriageway, Single carriageway, Slip road</p>
+</dd>
+<dt>speed_limit</dt><dd><p>Speed limit on the road in mph</p>
+</dd>
+<dt>junction_detail</dt><dd><p>Detail on junction where accident occurred: Crossroads, Mini-roundabout, More than 4 arms, Not within 20 metres of junction, Other junction, Private drive or entrance, Roundabout, Slip road, T or staggered junction</p>
+</dd>
+<dt>junction_control</dt><dd><p>How junction was controlled: Authorised person, Auto traffic signal, Give way or uncontrolled, Missing / Out of range, Stop sign</p>
+</dd>
+<dt>second_road_class</dt><dd><p>Class of 2st road involved in accident: A-road, B-road, C-road, Missing / Out of range, Motorway, Unclassified</p>
+</dd>
+<dt>second_road_number</dt><dd><p>ID of 2nd road (0 if unclassified)</p>
+</dd>
+<dt>ped_cross_human</dt><dd><p>Level of human control at a pedestrian crossing: Control by other authorised person, Control by school crossing patrol, None within 50 metres</p>
+</dd>
+<dt>ped_cross_physical</dt><dd><p>Level of facilities controlling a pedestrian crossing: Central refuge, No physical crossing facilities within 50 metres, Non-junction crossing (pelican, puffin, toucan or similar light crossing), Pedestrian phase at traffic signal junction, Zebra crossing</p>
+</dd>
+<dt>light</dt><dd><p>Light condition at the time of accident: Daylight, Darkness - lights lit, Darkness - lights unlit, Darkness - no lighting, Darkness - lighting unknown</p>
+</dd>
+<dt>weather</dt><dd><p>Weather condition at the time of accident: Fine + no high winds, Raining + no high winds, Snowing + no high winds, Fine + high winds, Raining + high winds, Snowing + high winds, Fog or mist, Other, Unknown</p>
+</dd>
+<dt>road_surface</dt><dd><p>Road surface conditions at the time of the accident: Dry, Wet or damp, Snow, Frost or ice, Flood over 3cm deep</p>
+</dd>
+<dt>special_condition</dt><dd><p>Special condition at the site of the accident: None, Road sign or marking defective or obscured, Roadworks, Road surface defective</p>
+</dd>
+<dt>hazard</dt><dd><p>Carriageway hazards: None, Other object on road, Previous accident, Pedestrian in carriageway - not injured</p>
+</dd>
+<dt>urban_rural</dt><dd><p>Type of area the accident occurred in</p>
+</dd>
+<dt>police</dt><dd><p>Did police officer attend the scene of the accident: No, No + accident self reported (using a self completion form), Yes</p>
+</dd>
+</dl>
+
+
+
+<h3>Details</h3>
+
+<p>The data come from the UK Government at
+<a href="https://data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data/datafile/36f1658e-b709-47e7-9f56-cca7aefeb8fe/preview">data.gov.uk</a>.
+It's been modified to better serve the goals of introductory data science education.
+</p>
+
+
+<h3>Source</h3>
+
+<p>https://data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data/datafile/36f1658e-b709-47e7-9f56-cca7aefeb8fe/preview
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+library(ggplot2)
+
+ggplot(accidents, aes(x = speed_limit)) +
+  geom_bar()
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>dsbox</em> version 0.1.1 <a href="00Index.html">Index</a>]</div>
+</body></html>
