@@ -108,6 +108,18 @@ nrow(mcdonalds2)
 
 Need to 
 
+```{r}
+fast_food_names <- fast_food %>%
+ select(name) %>%
+rbind(fast_food_names, by = "name") %>%
+mutate(
+  test_string = substr(fast_food_names, 1, 6)
+)
+# d <- adist(fast_food_names)
+# rownames(d)  <- n 
+# cl <- hclust(as.dist(d)) 
+# plot(cl)
+```
 
 
 
