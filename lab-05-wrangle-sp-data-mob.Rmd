@@ -11,18 +11,18 @@ link-citations: yes
 ---
 
 ```{r include=FALSE}
-library(tufte)
-library(knitr)
-options(
-  htmltools.dir.version = FALSE, # for blogdown
-  show.signif.stars = FALSE,     # for regression output
-  digits = 2
-  )
-knitr::opts_chunk$set(eval = FALSE)
+# library(tufte)
+# library(knitr)
+# options(
+#   htmltools.dir.version = FALSE, # for blogdown
+#   show.signif.stars = FALSE,     # for regression output
+#   digits = 2
+#   )
+# knitr::opts_chunk$set(eval = FALSE)
 ```
 
 ```{r fig.margin=TRUE, eval=TRUE, echo=FALSE}
-include_graphics("img/mitch-hedgeberg-lqd.jpg")
+# include_graphics("img/mitch-hedgeberg-lqd.jpg")
 ```
 
 In this lab we revisit the Denny's and La Quinta Inn and Suites data we visualized in the previous lab.
@@ -56,11 +56,65 @@ The datasets we'll use are called `dennys` and `laquinta` from the **dsbox** pac
 
 
 ```{r}
-#states <- read_csv("data/states.csv")
+states <- read_csv("U:/DataScience/ds241/states.csv")
 dn=dennys
 lq =laquinta
- 
+ nrow(dennys)
+ nrow(laquinta)
 ```
+
+```{r}
+fast_food <- read_csv("U:/DataScience/ds241/FastFoodRestaurants.csv")
+# View(fast_food)
+```
+
+
+```{r attempt at counting each location}
+# fast_food_filter <- fast_food %>%
+#   group_by(name) %>%
+#   summarise(count = n_distinct(name)) 
+# fast_food_filter
+```
+```{r attempt at filtering just McDonalds}
+# fast_food_test <- fast_food %>% filter(name == "McDonald's")
+# fast_food_test
+```
+
+```{r}
+# mcdonalds <- fast_food %>%
+#   filter(grepl('mcdonalds', websites) & grepl('Mc', name)) %>%
+#   select(latitude, longitude, name, province)
+# View(mcdonalds)
+```
+
+```{r}
+get_chain <- function(fast_food_data, grepl_website, grepl_name){
+  data <- fast_food_data %>% 
+    filter(grepl(grepl_website, websites) & grepl(grepl_name, name)) %>%
+    select(latitude, longitude, name, province)
+}
+```
+
+Testing our new function 
+```{r}
+mcdonalds2 <- get_chain(fast_food, 'tacobell', 'Ta')
+View(mcdonalds2)
+```
+
+
+```{r}
+nrow(mcdonalds2)
+```
+
+Need to 
+
+
+
+
+
+
+
+
 
 
 ## Exercises
