@@ -1,0 +1,192 @@
+---
+title: "Lab 04 - La Quinta is Spanish for next to Denny's, Pt. 1"
+author: "Jackie Budka"
+date: "10/8/2021"
+output: html_notebook
+---
+
+### Load packages and data
+
+```{r load-packages, message = FALSE}
+library(tidyverse) 
+library(dsbox) 
+library(sp)
+library(rworldmap)
+library(maps)
+library(rgeos)
+library(maptools)
+library(gapminder)
+library(revgeo)
+library(dplyr)
+library(ggplot2)
+library(magrittr)
+library(sf)
+library(rnaturalearth)
+library(leaflet)
+library(usmap)
+library(rgdal)
+library(geosphere)
+```
+
+```{r load-data, message = FALSE}
+states <- read_csv("U:/DataScience/ds241/states.csv")
+```
+
+### Exercise 1
+```{r dennys_ak}
+dn_ak <- dennys %>%
+  filter(state == "AK")
+nrow(dn_ak)
+```
+There are 3 Denny's in Alaska.
+
+
+### Exercise 2
+
+```{r la_quinta_ak}
+lq_ak <- laquinta %>%
+  filter(state == "AK")
+nrow(lq_ak)
+```
+There are 2 La Quinta's in Alaska
+
+### Exercise 3
+We need to calculate 6 distances. These are the distances between each Denny's and each La Quinta.
+```{r my independent attempt at finding distance}
+# adapted from this solution on stack exchange https://stackoverflow.com/questions/32363998/function-to-calculate-geospatial-distance-between-two-points-lat-long-using-r
+lq_ak_coord <- lq_ak %>%
+select(longitude,latitude)
+dn_ak_coord <- dn_ak %>%
+  select(longitude,latitude)
+distm(dn_ak_coord, lq_ak_coord, fun = distHaversine)
+```
+```{r}
+dn_lq_ak <- full_join(dn_ak, lq_ak, by = "state")
+dn_lq_ak
+```
+
+...
+
+### Exercise 4
+There are 6 observations in the new dn_lq_ak data frame.
+```{r}
+names(dn_lq_ak)
+```
+
+
+...
+
+### Exercise 5
+Mutate.
+```{r haversine}
+haversine <- function(long1, lat1, long2, lat2, round = 3) {
+  # convert to radians
+  long1 = long1 * pi / 180
+  lat1  = lat1  * pi / 180
+  long2 = long2 * pi / 180
+  lat2  = lat2  * pi / 180
+  
+  R = 6371 # Earth mean radius in km
+  
+  a = sin((lat2 - lat1)/2)^2 + cos(lat1) * cos(lat2) * sin((long2 - long1)/2)^2
+  d = R * 2 * asin(sqrt(a))
+  
+  return( round(d,round) ) # distance in km
+}
+```
+
+...
+
+### Exercise 6
+```{r}
+dn_lq_ak <- dn_lq_ak %>%
+mutate(distance = haversine(longitude.x, latitude.x, longitude.y, latitude.y, round = 2))
+```
+
+...
+
+### Exercise 7
+```{r}
+dn_lq_ak_mindist <- dn_lq_ak %>%
+  group_by(address.x) %>%
+  summarise(closest = min(distance)) 
+```
+
+...
+
+### Exercise 8
+The Denny's are all less than 6 km from the closest La Quinta.
+```{r}
+
+
+```
+
+...
+
+### Exercise 9
+```{r}
+dennys3 <- dennys %>%
+  count(state) %>%
+  inner_join(states, by = c("state" = "abbreviation")) 
+laquinta5 <- laquinta3 %>%
+  count(state)%>%
+  inner_join(states, by = c("state" = "abbreviation"))
+```
+California, Texas, and Florida have the most Denny's and Delaware, DC, and Vermont have the fewest. This makes sense becauase the states with the most are some of the most populated states and the ones with the fewest are some of the least populated.
+
+Texas, Florida, and California have the most La Quintas and Maine, Alaska, and New Hampshire have the fewest. This also makes sense because the ones with the most are the most populated states and the ones with the least are some of the least populated states.
+...
+
+### Exercise 10
+```{r}
+dennys_per_sqm <- dennys3 %>%
+  mutate(location_per_sqm = n/(area/1000))
+
+laquintas_per_sqm <- laquinta5 %>%
+  mutate(location_per_sqm = n/(area/1000))
+
+dennys4 <- dennys %>%
+  mutate(establishment = "Denny's")
+laquinta4 <- laquinta3 %>%
+  mutate(establishment = "La Quinta") 
+
+dn_lq <- bind_rows(dennys4, laquinta4)
+
+ggplot(dn_lq, mapping = aes(x = longitude, y = latitude, color = establishment)) +
+  geom_point(alpha = 0.1) 
+
+
+```
+DC, Rhode Island, and California had the most Denny's per square mile. Rhode Island, Florida, and Connecticut had the most La Quintas per square mile. 
+...
+
+
+### Exercise 11
+```{r}
+MainStates <- map_data("state")
+StatePopulation <- read.csv("https://raw.githubusercontent.com/ds4stats/r-tutorials/master/intro-maps/data/StatePopulation.csv", as.is = TRUE)
+
+
+
+dn_lq1 <- dn_lq %>%
+  filter(state == "NC")
+
+ggplot(dn_lq1, mapping = aes(x = longitude, y = latitude, color = establishment), crs = 4269) +
+  geom_point(alpha = 0.5) 
+
+
+```
+Mitch Hedberg's joke appears to be somewhat true. Most of the La Quintas are close to at least one Denny's.
+...
+
+### Exercise 12
+```{r}
+dn_lq2 <- dn_lq %>%
+  filter(state == "TX")
+
+ggplot(dn_lq2, mapping = aes(x = longitude, y = latitude, color = establishment)) +
+  geom_point(alpha = 0.3)
+
+```
+Mitch Hedberg's joke appears to hold less well in Texas. There are manny La Quintas that are not near a Denny's.
+...

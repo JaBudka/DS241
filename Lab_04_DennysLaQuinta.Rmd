@@ -1,0 +1,181 @@
+---
+title: "Lab 04 - La Quinta is Spanish for next to Denny's, Part 1"
+author: "Jackie Budka"
+date: "10/8/2021"
+output: html_notebook
+---
+
+### Load packages and data
+
+```{r load-packages, message = FALSE}
+library(tidyverse) 
+library(dsbox) 
+library(sp)
+library(rworldmap)
+library(maps)
+library(rgeos)
+library(maptools)
+library(gapminder)
+library(revgeo)
+library(dplyr)
+library(ggplot2)
+library(magrittr)
+library(sf)
+library(rnaturalearth)
+library(leaflet)
+library(usmap)
+library(rgdal)
+```
+
+```{r load-data, message = FALSE}
+states <- read_csv("U:/DataScience/ds241/states.csv")
+```
+
+### Exercise 1
+```{r dennys_dimensions}
+nrow(dennys)
+ncol(dennys)
+head(dennys)
+View(dennys)
+```
+dennys is a 6 by 1643 data set. Each row of data is the information for one Denny's location. The variables are address, city, state, zip code, longitude, and latitude.
+
+
+### Exercise 2
+
+```{r la_quinta_dimensions}
+nrow(laquinta)
+ncol(laquinta)
+head(laquinta)
+View(laquinta)
+```
+laquinta is a 6 by 909 data set. Each row of data is the information for one La Quinta's location. The variables are address, city, state, zip code, longitude, and latitude.
+
+### Exercise 3
+There are La Quintas in Canada, Chile, Colombia, Honduras, Mexico, New Zealand, Turkey, and the UAE. There are no Denny's outside of the USA.
+...
+
+### Exercise 4
+To determine if an establishment has any locations outside the US you could filter both the laquinta and dennys data sets by the state variable when that variable is equal to one of the variables in the "abbreviation" column of the states data set. After filtering out all the states that are in the states data set we should be left only with places that are not US states. 
+...
+
+### Exercise 5
+```{r}
+dennys1 <- dennys %>%
+  filter(!(state %in% states$abbreviation))
+```
+The function that filters out the events in the dennys data where the state is inside the US produced a null set. This means that all Denny's locations are inside the US. 
+...
+
+### Exercise 6
+```{r}
+dennys2 <- dennys %>%
+  mutate(country = "United States")
+```
+
+...
+
+### Exercise 7
+```{r}
+laquinta1 <- laquinta %>%
+  filter(!(state %in% states$abbreviation)) 
+```
+AG - Mexico
+ANT - Colombia
+BC - Canada
+CH - Mexico
+FM - Honduras
+NL - Mexico
+ON - Canada
+PU - Mexico
+QR - Mexico
+SL - Mexico
+VE - Mexico
+...
+
+### Exercise 8
+```{r}
+
+laquinta2 <- laquinta %>%
+  mutate(country = case_when(
+    state %in% state.abb     ~ "United States",
+    state %in% c("ON", "BC") ~ "Canada",
+    state == "ANT"           ~ "Colombia",
+    state %in% c("AG", "CH", "NL", "PU", "QR", "SL", "VE") ~ "Mexico",
+    state == "FM"            ~ "Honduras"
+  ))
+
+laquinta3 <- laquinta2 %>%
+
+  filter(country == "United States")
+```
+
+...
+
+### Exercise 9
+```{r}
+dennys3 <- dennys %>%
+  count(state) %>%
+  inner_join(states, by = c("state" = "abbreviation")) 
+laquinta5 <- laquinta3 %>%
+  count(state)%>%
+  inner_join(states, by = c("state" = "abbreviation"))
+```
+California, Texas, and Florida have the most Denny's and Delaware, DC, and Vermont have the fewest. This makes sense becauase the states with the most are some of the most populated states and the ones with the fewest are some of the least populated.
+
+Texas, Florida, and California have the most La Quintas and Maine, Alaska, and New Hampshire have the fewest. This also makes sense because the ones with the most are the most populated states and the ones with the least are some of the least populated states.
+...
+
+### Exercise 10
+```{r}
+dennys_per_sqm <- dennys3 %>%
+  mutate(location_per_sqm = n/(area/1000))
+
+laquintas_per_sqm <- laquinta5 %>%
+  mutate(location_per_sqm = n/(area/1000))
+
+dennys4 <- dennys %>%
+  mutate(establishment = "Denny's")
+laquinta4 <- laquinta3 %>%
+  mutate(establishment = "La Quinta") 
+
+dn_lq <- bind_rows(dennys4, laquinta4)
+
+ggplot(dn_lq, mapping = aes(x = longitude, y = latitude, color = establishment)) +
+  geom_point(alpha = 0.1) 
+
+
+```
+DC, Rhode Island, and California had the most Denny's per square mile. Rhode Island, Florida, and Connecticut had the most La Quintas per square mile. 
+...
+
+
+### Exercise 11
+```{r}
+MainStates <- map_data("state")
+StatePopulation <- read.csv("https://raw.githubusercontent.com/ds4stats/r-tutorials/master/intro-maps/data/StatePopulation.csv", as.is = TRUE)
+
+
+
+dn_lq1 <- dn_lq %>%
+  filter(state == "NC")
+
+ggplot(dn_lq1, mapping = aes(x = longitude, y = latitude, color = establishment), crs = 4269) +
+  geom_point(alpha = 0.5) 
+
+
+```
+Mitch Hedberg's joke appears to be somewhat true. Most of the La Quintas are close to at least one Denny's.
+...
+
+### Exercise 12
+```{r}
+dn_lq2 <- dn_lq %>%
+  filter(state == "TX")
+
+ggplot(dn_lq2, mapping = aes(x = longitude, y = latitude, color = establishment)) +
+  geom_point(alpha = 0.3)
+
+```
+Mitch Hedberg's joke appears to hold less well in Texas. There are manny La Quintas that are not near a Denny's.
+...
