@@ -66,6 +66,8 @@ lq =laquinta
 ```{r}
 fast_food <- read_csv("U:/DataScience/ds241/FastFoodRestaurants.csv")
 # View(fast_food)
+
+# for some absolutely incomprehensible reason you have to reload the files window for this to run.
 ```
 
 
@@ -108,26 +110,93 @@ nrow(mcdonalds2)
 
 Need to 
 
-```{r}
-fast_food_names <- fast_food %>%
- select(name) %>%
-rbind(fast_food_names, by = "name") %>%
-mutate(
-  test_string = substr(fast_food_names, 1, 6)
-)
+```{r Jackie Trying to group by chain name}
+# fast_food_names <- fast_food %>%
+#  select(name) %>%
+# rbind(fast_food_names, by = "name") %>%
+# mutate(
+#   test_string = substr(fast_food_names, 1, 6)
+# )
 # d <- adist(fast_food_names)
 # rownames(d)  <- n 
 # cl <- hclust(as.dist(d)) 
 # plot(cl)
 ```
 
+# Mark's Lab 5
+Step 1:
+Get all of lab 5 working, to include creating a function that takes a "state" as input and produces the output dataframe of distinces.
+```{r create_function}
+map_mindist <- function(which_state) {
+#step i
+x = which_state
+
+dn_x <- dennys %>%
+filter(state == x)
 
 
 
+lq_x <- laquinta %>%
+filter(state == x)
+
+dn_lq_x <- full_join(dn_x, lq_x, by = "state") %>%
+mutate(distance = haversine(longitude.x, latitude.x, longitude.y, latitude.y, round = 1))
+
+dn_lq_x_mindist <- dn_lq_x %>%
+group_by(address.x) %>%
+summarise(closest = min(distance))
+
+}
+```
+
+step 2:
+Modify (probably already done in class) so that ... given a state, if creates a dataframe that for each la quinta, it includes distance to nearest dennys.
+```{r create_modified_function}
+map_mindist2 <- function(which_state) {
+#step i
+x = which_state
+
+dn_x <- dennys %>%
+filter(state == x)
 
 
 
+lq_x <- laquinta %>%
+filter(state == x)
 
+lq_dn_x <- full_join(lq_x, dn_x, by = "state") %>%
+mutate(distance = haversine(longitude.x, latitude.x, longitude.y, latitude.y, round = 1))
+
+lq_dn_x_mindist <- lq_dn_x %>%
+group_by(address.x) %>%
+summarise(closest = min(distance)) %>%
+mutate(state == x)
+
+
+#The below code will help you quickly print visualizations or summary statistics
+
+# summary(dn_lq_x_mindist)
+# ggplot(data = dn_lq_x_mindist) +
+# geom_dotplot(mapping = aes(x = closest))
+
+}
+```
+
+
+```{r testing}
+lq_dn_tx_mindist <- map_mindist2("TX")
+View(lq_dn_tx_mindist)
+```
+
+
+
+Step 3:
+Grab the dataset (available in moodle in "week of 28 Sep" ) for the 10000 US restaurants.
+
+We complete step 3 above
+
+Step 4:
+Create a function that takes a "state" as input and produces a dataframe, where there is one observation per "la quinta" and it lists distance to nearest "Restaurant".
 
 ## Exercises
 
