@@ -1,0 +1,21 @@
+---
+title: "DC Bikeshare Mob"
+author: "Jackie Budka, Mark Fairchild, Jackson Skove-Menoher"
+date: "11/3/2021"
+output: html_notebook
+---
+
+```{r eval = FALSE}
+library(tidyverse) 
+library(dsbox) 
+library(lubridate)
+library(janitor)
+```
+
+```{r create_restaurants_dataframe}
+bike_share <- read_csv("U:/DataScience/ds241/202109-capitalbikeshare-tripdata.csv")
+bike_share_data <- bike_share 
+
+```
+
+

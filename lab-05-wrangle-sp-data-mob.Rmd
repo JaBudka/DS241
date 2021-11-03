@@ -261,7 +261,7 @@ stat_function(fun = dnorm, args = list(mean = mean(step4_mindist("NY")$closest),
     title = "Normal Distributions Generated From Closest Distances",
     x = "Closest Distances",
     y = "Density"
-  )
+  ) 
 ```
 To answer the question, are Denny's closer than any other restaurant to LaQuinta, the visualizations for the states of Texas and New York can be observed. It appears that when 500 samples of resaurants in Texas and their distances to LaQuinta's are compared to the distances of Denny's, the Denny's are closer. This conclusion is clear because there is a higher density of Denny's locations at a closer distance.
 However, for the random sample from New York, the Denny's are farther than other restaurants. This conclusion can be made because there is a higher density of smaller distances for other restaurants relative to Denny's
