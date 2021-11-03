@@ -1765,9 +1765,9 @@ library(janitor)</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYmlrZV9zaGFyZSA8LSByZWFkX2NzdihcIlU6L0RhdGFTY2llbmNlL2RzMjQxLzIwMjEwOS1jYXBpdGFsYmlrZXNoYXJlLXRyaXBkYXRhLmNzdlwiKVxuYGBgIn0= -->
 <pre class="r"><code>bike_share &lt;- read_csv(&quot;U:/DataScience/ds241/202109-capitalbikeshare-tripdata.csv&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMzA5MTk3IENvbHVtbnM6IDEzXG4tLSBDb2x1bW4gc3BlY2lmaWNhdGlvbiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tXG5EZWxpbWl0ZXI6IFwiLFwiXG5jaHIgICg1KTogcmlkZV9pZCwgcmlkZWFibGVfdHlwZSwgc3RhcnRfc3RhdGlvbl9uYW1lLCBlbmRfc3RhdGlvbl9uYW1lLCBtZW1iZXJfY2FzdWFsXG5kYmwgICg2KTogc3RhcnRfc3RhdGlvbl9pZCwgZW5kX3N0YXRpb25faWQsIHN0YXJ0X2xhdCwgc3RhcnRfbG5nLCBlbmRfbGF0LCBlbmRfbG5nXG5kdHRtICgyKTogc3RhcnRlZF9hdCwgZW5kZWRfYXRcblxuaSBVc2UgYHNwZWMoKWAgdG8gcmV0cmlldmUgdGhlIGZ1bGwgY29sdW1uIHNwZWNpZmljYXRpb24gZm9yIHRoaXMgZGF0YS5cbmkgU3BlY2lmeSB0aGUgY29sdW1uIHR5cGVzIG9yIHNldCBgc2hvd19jb2xfdHlwZXMgPSBGQUxTRWAgdG8gcXVpZXQgdGhpcyBtZXNzYWdlLlxuIn0= -->
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMzA5MTk3IENvbHVtbnM6IDEzXG4tLSBDb2x1bW4gc3BlY2lmaWNhdGlvbiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLVxuRGVsaW1pdGVyOiBcIixcIlxuY2hyICAoNSk6IHJpZGVfaWQsIHJpZGVhYmxlX3R5cGUsIHN0YXJ0X3N0YXRpb25fbmFtZSwgZW5kX3N0YXRpb25fbmFtZSwgbWVtYmVyX2Nhc3VhbFxuZGJsICAoNik6IHN0YXJ0X3N0YXRpb25faWQsIGVuZF9zdGF0aW9uX2lkLCBzdGFydF9sYXQsIHN0YXJ0X2xuZywgZW5kX2xhdCwgZW5kX2xuZ1xuZHR0bSAoMik6IHN0YXJ0ZWRfYXQsIGVuZGVkX2F0XG5cbmkgVXNlIGBzcGVjKClgIHRvIHJldHJpZXZlIHRoZSBmdWxsIGNvbHVtbiBzcGVjaWZpY2F0aW9uIGZvciB0aGlzIGRhdGEuXG5pIFNwZWNpZnkgdGhlIGNvbHVtbiB0eXBlcyBvciBzZXQgYHNob3dfY29sX3R5cGVzID0gRkFMU0VgIHRvIHF1aWV0IHRoaXMgbWVzc2FnZS5cbiJ9 -->
 <pre><code>Rows: 309197 Columns: 13
--- Column specification -------------------------------------------------------------------------------------------
+-- Column specification -----------------------------------------------------------------------------------------
 Delimiter: &quot;,&quot;
 chr  (5): ride_id, rideable_type, start_station_name, end_station_name, member_casual
 dbl  (6): start_station_id, end_station_id, start_lat, start_lng, end_lat, end_lng
@@ -1782,9 +1782,23 @@ i Specify the column types or set `show_col_types = FALSE` to quiet this message
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Idea for next time: break the posixct data into two columns (date and time)</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYmlrZV9zaGFyZV9kYXRhX3NlcDEgPC0gYmlrZV9zaGFyZV9kYXRhICU+JVxuICBtdXRhdGUoc3RhcnRlZF9hdCA9IGFzLkRhdGUoc3RhcnRlZF9hdCkpICU+JSAjIHRyeUZvcm1hdHMgPSBjKFwiJVktJW0tJWRcIiwgXCIlWS8lbS8lZFwiKSkpICU+JVxuICBtdXRhdGUoZW5kZWRfYXQgPSBhcy5EYXRlKGVuZGVkX2F0KSlcbiMgICBmaWx0ZXIoc3RhcnRlZF9hdCA8IFwiMjAyMS0wOS0wMiAwMDowMDowMFwiKSAlPiVcbiMgICMgYXJyYW5nZShzdGFydGVkX2F0KSBcbiMgICBhcnJhbmdlKGRlc2Moc3RhcnRlZF9hdCkpXG4gVmlldyhiaWtlX3NoYXJlX2RhdGFfc2VwMSlcbmBgYCJ9 -->
+<pre class="r"><code>bike_share_data_sep1 &lt;- bike_share_data %&gt;%
+  mutate(started_at = as.Date(started_at)) %&gt;% # tryFormats = c(&quot;%Y-%m-%d&quot;, &quot;%Y/%m/%d&quot;))) %&gt;%
+  mutate(ended_at = as.Date(ended_at))
+#   filter(started_at &lt; &quot;2021-09-02 00:00:00&quot;) %&gt;%
+#  # arrange(started_at) 
+#   arrange(desc(started_at))
+ View(bike_share_data_sep1)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRDIEJpa2VzaGFyZSBNb2IiDQphdXRob3I6ICJKYWNraWUgQnVka2EsIE1hcmsgRmFpcmNoaWxkLCBKYWNrc29uIFNrb3ZlLU1lbm9oZXIiDQpkYXRlOiAiMTEvMy8yMDIxIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KYGBge3IgZXZhbCA9IEZBTFNFfQ0KbGlicmFyeSh0aWR5dmVyc2UpIA0KbGlicmFyeShkc2JveCkgDQpsaWJyYXJ5KGx1YnJpZGF0ZSkNCmxpYnJhcnkoamFuaXRvcikNCmBgYA0KDQpgYGB7ciBjcmVhdGVfcmVzdGF1cmFudHNfZGF0YWZyYW1lfQ0KYmlrZV9zaGFyZSA8LSByZWFkX2NzdigiVTovRGF0YVNjaWVuY2UvZHMyNDEvMjAyMTA5LWNhcGl0YWxiaWtlc2hhcmUtdHJpcGRhdGEuY3N2IikNCmJpa2Vfc2hhcmVfZGF0YSA8LSBiaWtlX3NoYXJlIA0KDQpgYGANCg0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRDIEJpa2VzaGFyZSBNb2IiDQphdXRob3I6ICJKYWNraWUgQnVka2EsIE1hcmsgRmFpcmNoaWxkLCBKYWNrc29uIFNrb3ZlLU1lbm9oZXIiDQpkYXRlOiAiMTEvMy8yMDIxIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KYGBge3IgZXZhbCA9IEZBTFNFfQ0KbGlicmFyeSh0aWR5dmVyc2UpIA0KbGlicmFyeShkc2JveCkgDQpsaWJyYXJ5KGx1YnJpZGF0ZSkNCmxpYnJhcnkoamFuaXRvcikNCmBgYA0KDQpgYGB7ciBjcmVhdGVfcmVzdGF1cmFudHNfZGF0YWZyYW1lfQ0KYmlrZV9zaGFyZSA8LSByZWFkX2NzdigiVTovRGF0YVNjaWVuY2UvZHMyNDEvMjAyMTA5LWNhcGl0YWxiaWtlc2hhcmUtdHJpcGRhdGEuY3N2IikNCmJpa2Vfc2hhcmVfZGF0YSA8LSBiaWtlX3NoYXJlIA0KDQpgYGANCg0KSWRlYSBmb3IgbmV4dCB0aW1lOiBicmVhayB0aGUgcG9zaXhjdCBkYXRhIGludG8gdHdvIGNvbHVtbnMgKGRhdGUgYW5kIHRpbWUpDQoNCmBgYHtyfQ0KYmlrZV9zaGFyZV9kYXRhX3NlcDEgPC0gYmlrZV9zaGFyZV9kYXRhICU+JQ0KICBtdXRhdGUoc3RhcnRlZF9hdCA9IGFzLkRhdGUoc3RhcnRlZF9hdCkpICU+JSAjIHRyeUZvcm1hdHMgPSBjKCIlWS0lbS0lZCIsICIlWS8lbS8lZCIpKSkgd2UgbmVlZCB0aGlzIGlzIGhyL21pbi9zZWMlPiUNCiAgbXV0YXRlKGVuZGVkX2F0ID0gYXMuRGF0ZShlbmRlZF9hdCkpDQojICAgZmlsdGVyKHN0YXJ0ZWRfYXQgPCAiMjAyMS0wOS0wMiAwMDowMDowMCIpICU+JQ0KIyAgIyBhcnJhbmdlKHN0YXJ0ZWRfYXQpIA0KIyAgIGFycmFuZ2UoZGVzYyhzdGFydGVkX2F0KSkNCiBWaWV3KGJpa2Vfc2hhcmVfZGF0YV9zZXAxKQ0KYGBgDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg==</div>
 
 
 

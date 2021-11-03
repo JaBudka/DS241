@@ -18,4 +18,27 @@ bike_share_data <- bike_share
 
 ```
 
+Idea for next time: break the posixct data into two columns (date and time)
+
+```{r}
+bike_share_data_sep1 <- bike_share_data %>%
+  mutate(started_at = as.Date(started_at)) %>% # tryFormats = c("%Y-%m-%d", "%Y/%m/%d"))) we need this is hr/min/sec%>%
+  mutate(ended_at = as.Date(ended_at))
+#   filter(started_at < "2021-09-02 00:00:00") %>%
+#  # arrange(started_at) 
+#   arrange(desc(started_at))
+ View(bike_share_data_sep1)
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
