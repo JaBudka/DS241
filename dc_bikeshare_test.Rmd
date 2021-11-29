@@ -1,0 +1,16 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r load packages}
+library(tidyverse)
+library(tidymodels)
+library(dsbox)
+```
+
+```{r}
+rea
+```
+

@@ -1,0 +1,32 @@
+---
+title: "dc_covid"
+author: "Jackie Budka"
+date: "11/29/2021"
+output: html_notebook
+---
+
+
+
+```{r load packages}
+library(tidyverse)
+library(tidymodels)
+library(dsbox)
+library(httr)
+library(jsonlite)
+library(lubridate)
+library(sf)
+library(tmap)
+library(ggplot2)
+```
+
+```{r}
+# url <- "https://opendata.arcgis.com"
+# path <- "datasets/62f6f28dbfc74ae489fa3dcda9e94744_28.geojson"
+# raw_data <- GET(url,path)
+```
+```{r}
+neighborhoods_shape <- sf::read_sf("DC_Health_Planning_Neighborhoods") %>%
+plot() 
+```
+
+

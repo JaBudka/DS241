@@ -1,0 +1,34 @@
+---
+title: "sf and tmap tutorials"
+output: html_notebook
+---
+
+```{r}
+library(sf)
+library(tmap)
+library(maps)
+library(tmaptools)
+library(raster)
+library(sp)
+library(spData)
+library(maps)
+library(mapview)
+library(ggmap)
+library(leaflet)
+library(tidyverse)
+```
+
+
+```{r}
+ma1 <- tm_shape(nz) + tm_fill(col = "red", alpha = 0.3)
+ma2 <- tm_shape(nz) + tm_borders(col = "blue")
+ma3 <- tm_shape(nz) + tm_fill(col="red", alpha = 0.3) +
+        tm_borders(col="blue", lty = 2)
+ma4 <- tm_shape(nz) + tm_fill(col = "Land_area", alpha = 0.3, title=expression("Area (km"^2*")")) +
+        tm_borders(col = "blue", lty = 2) +
+        tm_layout(title="New Zealand") +
+        tm_legend(position = c("right", "bottom"))
+tmap_arrange(ma1, ma2, ma3, ma4)
+
+```
+
