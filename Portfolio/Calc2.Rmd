@@ -1,0 +1,104 @@
+---
+title: "Calculus 2 Prediction"
+author: "Jackie Budka"
+date: "10/8/2021"
+output: html_notebook
+---
+
+# Load the relevant packages
+
+```{r load-packages, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(lubridate)
+library(glue)
+library(scales)
+library(ggrepel)
+library(DT)
+library(readr)
+library(janitor)
+```
+
+# Import the csv data and convert the names into snake case
+```{r load csv}
+df1a <- read_csv("CU_ACAD_DEPT_WHEN_OFF_ENRL_22740.csv", 
+    skip = 1) %>% clean_names()
+```
+# Select useful columns and filter out irrelevant courses and course types
+```{r all Calc I and II sections}
+df1b <- df1a %>%
+  select(course_id:catalog,title,term_7,term_8,tot_enrl,component) %>%
+  filter(subject == "MA", title == "Calculus I" | title == "Calculus II", component == "LEC",grepl('Fall|Spring', term_8))%>%
+  group_by(title,term_8)%>%
+  summarise(enroll_per_term = sum(tot_enrl)) %>%
+ungroup()
+```
+```{r isolate relevant Calc I and II sections (not needed)}
+df1c <- df1b %>%
+  filter((title == "Calculus I" & grepl('Fall',term_8)) | (title == "Calculus II" & grepl('Spring',term_8)))
+```
+
+# Separate the variable that contains the year and term and rename the class title
+```{r Split and rename}
+df1d <- df1b %>%
+  separate(term_8, c("term", "year")) %>%
+  mutate(
+    title = case_when(
+      title == "Calculus I" ~ "Calc 1",
+      title == "Calculus II" ~ "Calc 2",
+    ))
+```
+
+# Create a new variable called aca_year that is a range of years pertaining to an academic year
+```{r academic year}
+df1e <- df1d %>%
+  mutate(year = as.integer(year)) %>%
+  mutate(
+    aca_year = case_when(
+      term == "Fall" ~ str_c((year-2000),"-",(year-1999)),
+      term == "Spring" ~ str_c((year-2001),"-",(year-2000))
+    )
+  )%>%
+select(-c(year))
+
+```
+
+
+# Join the term and class section variables to create one variable called class_term
+```{r Join term and section}
+df1f <- df1e %>%
+  mutate (
+    class_term = 
+      str_c((title)," ",(term))
+    )%>%
+select(-c(title,term))%>%
+group_by(class_term)
+```
+
+# Pivot the data to use the values of enrollment per term versus the class_term
+```{r}
+df1g <- df1f %>%
+  pivot_wider(names_from = class_term, values_from = enroll_per_term)%>%
+  clean_names()
+```
+
+# Isolate the current calc 1 fall class to make prediction
+```{r find current prediction}
+df1hvert <- df1g %>%
+  filter(aca_year == "21-22")
+```
+
+
+# Take out incomplete data
+```{r filter out incomplete data}
+df1h <- df1g %>%
+  
+filter(!aca_year=="21-22")
+```
+
+# Plot Fall Calculus I class vs Spring Calculus II class
+```{r Plot Calc 1 Fall vs Calc 2 of the following Spring}
+ggplot(df1h, aes(calc_1_fall, calc_2_spring)) + 
+  geom_point() + geom_smooth(method = lm) + geom_vline(xintercept=457)
+
+```
+

@@ -1,0 +1,231 @@
+---
+title: "Lab 05 - La Quinta is Spanish for *next to Denny's*, Pt. 2"
+subtitle: "Mob 1"
+author: "Jackie Budka, Jackson Skove-Menoher, Mark Fairchild"
+output: 
+  html_notebook
+---
+
+### Load Packages
+
+```{r eval = FALSE}
+library(tidyverse) 
+library(dsbox) 
+```
+
+## Load data
+
+
+```{r}
+states <- read_csv("states.csv")
+dn=dennys
+lq =laquinta
+ nrow(dennys)
+ nrow(laquinta)
+```
+
+```{r}
+fast_food <- read_csv("FastFoodRestaurants.csv")
+# View(fast_food)
+```
+
+Our first attempt at counting each location
+```{r}
+# fast_food_filter <- fast_food %>%
+#   group_by(name) %>%
+#   summarise(count = n_distinct(name)) 
+# fast_food_filter
+```
+```{r attempt at filtering just McDonalds}
+# fast_food_test <- fast_food %>% filter(name == "McDonald's")
+# fast_food_test
+```
+
+```{r}
+# mcdonalds <- fast_food %>%
+#   filter(grepl('mcdonalds', websites) & grepl('Mc', name)) %>%
+#   select(latitude, longitude, name, province)
+# View(mcdonalds)
+```
+
+```{r}
+get_chain <- function(fast_food_data, grepl_website, grepl_name){
+  data <- fast_food_data %>% 
+    filter(grepl(grepl_website, websites) & grepl(grepl_name, name)) %>%
+    select(latitude, longitude, name, province)
+}
+```
+
+Testing our new function 
+```{r}
+mcdonalds2 <- get_chain(fast_food, 'tacobell', 'Ta')
+View(mcdonalds2)
+```
+
+
+```{r}
+nrow(mcdonalds2)
+```
+
+
+
+## Exercises
+
+1. Filter the Denny's dataframe for Alaska (AK) and save the result as  `dn_ak`. How many Denny's locations are there in Alaska?
+   
+```{r}
+dn_ak <- dn %>%
+  filter(state == "AK")
+nrow(dn_ak)
+```
+
+2. Filter the La Quinta dataframe for Alaska (AK) and save the result as `lq_ak`. How many La Quinta locations are there in Alaska?
+   
+```{r}
+lq_ak <- lq %>%
+  filter(state == "AK")
+nrow(lq_ak)
+```
+
+
+3. How many pairings are there between all Denny's and all La Quinta locations in Alaska, i.e. how many distances do we need to calculate between the  locations of these establishments in Alaska?
+
+Six distances need to be calculated.
+
+
+Join the data on Denny's and La Quinta locations in Alaska, and take 
+a look at what it looks like:
+
+```{r}
+dn_lq_ak <- full_join(dn_ak, lq_ak, by = "state")
+dn_lq_ak
+```
+
+4. How many observations are in the joined `dn_lq_ak` data frame? What are the names of the variables in this data frame. 
+   
+`.x` in the variable names means the variable comes from the `x` data frame 
+(the first argument in the `full_join` call, i.e. `dn_ak`), and `.y` means 
+the variable comes from the `y` data frame. These varibles are renamed to 
+include `.x` and `.y` because the two data frames have the same variables 
+and it's not possible to have two variables in a data frame with the exact 
+same name.
+
+Now that we have the data in the format we wanted, all that is left is to 
+calculate the distances between the pairs.
+
+5.  What function from the tidyverse do we use the add a new variable to a data frame while keeping the existing variables?
+
+*mutate*
+
+One way of calculating the distance between any two points on the earth is to use the Haversine distance formula. This formula takes into account the fact that the earth is not flat, but instead spherical.
+
+This function is not available in R, but we have it saved in a file called `haversine.R` that we can load and then use:
+
+```{r}
+haversine <- function(long1, lat1, long2, lat2, round = 3) {
+  # convert to radians
+  long1 = long1 * pi / 180
+  lat1  = lat1  * pi / 180
+  long2 = long2 * pi / 180
+  lat2  = lat2  * pi / 180
+  
+  R = 6371 # Earth mean radius in km
+  
+  a = sin((lat2 - lat1)/2)^2 + cos(lat1) * cos(lat2) * sin((long2 - long1)/2)^2
+  d = R * 2 * asin(sqrt(a))
+  
+  return( round(d,round) ) # distance in km
+}
+```
+
+This function takes five arguments:
+
+- Longitude and latitude of the first location
+- Longitude and latitude of the second location
+- A parameter by which to round the responses
+
+6. Calculate the distances between all pairs of Denny's and La Quinta locations and save this variable as `distance`. Make sure to save this variable in THE `dn_lq_ak` data frame so that you can use it later.
+   
+```{r}
+dn_lq_ak=dn_lq_ak %>% 
+  mutate(distance=
+           haversine(longitude.x, latitude.x, longitude.y, latitude.y, round = 4))
+```
+   
+   
+   
+7. Calculate the minimum distance between a Denny's and La Quinta for each Denny's location. To do so we group by Denny's locations and calculate a new variable that stores the information for the minimum distance.
+
+```{r}
+dn_lq_ak_mindist <- dn_lq_ak %>%
+  group_by(address.x) %>%
+  summarise(closest = min(distance))
+```
+
+8. Describe the distribution of the distances Denny's and the nearest La Quinta locations in Alaska. Also include an appripriate visualization and relevant summary statistics. 
+
+*With only three distances, it is not really appropriate to describe as a "distribution".  Rather, a simple listing, (2.03, 5.2, 6), in kilometers, are the resultant values.  A dotplot is probably reasonable for visualization, but is not needed.*
+
+```{r}
+summary(dn_lq_ak_mindist)
+dn_lq_ak_mindist %>% ggplot(aes(x=closest)) + geom_dotplot()
+```
+
+   
+9. Repeat the same analysis for North Carolina: (i) filter Denny's and La Quinta Data Frames for NC, (ii) join these data frames to get a completelist of all possible pairings, (iii) calculate the distances between all possible pairings of Denny's and La Quinta in NC, (iv) find the minimum distance between each Denny's and La Quinta location, (v) visualize and describe the distribution of these shortest distances using appropriate summary statistics.
+
+*As I see that we intend to do this procedure for other states, I will write this as a function, with state as input, produce summary and graph, and output  the dataframe."
+
+
+```{r}
+analyze_state = function (this_state) {
+  
+  dn_state <- dn %>%
+  filter(state == this_state)
+  
+  lq_state = lq %>%
+  filter(state == this_state)
+  
+  dn_lq_state_mindist <- full_join(dn_state, lq_state, by = "state") %>%
+    mutate(distance=
+           haversine(longitude.x, latitude.x, longitude.y, latitude.y, round = 4)) %>%
+  group_by(address.x) %>%
+  summarise(closest = min(distance))  
+
+
+}
+```
+
+Now we compute for North Carolina:
+
+```{r}
+dfNC=analyze_state("NC")
+summary(dfNC)
+dfNC %>% ggplot(aes(x=closest)) + geom_dotplot()
+
+```
+
+
+10. Repeat the same analysis for Texas.
+
+```{r}
+dfTX=analyze_state("TX")
+summary(dfTX)
+dfTX %>% ggplot(aes(x=closest)) + geom_histogram()
+
+```
+11. Repeat the same analysis for a state of your choosing, different than the ones we covered so far.
+
+```{r}
+dfNY=analyze_state("NY")
+summary(dfNY)
+dfNY %>% ggplot(aes(x=closest)) + geom_dotplot()
+
+```
+    
+12. Among the states you examined, where is Mitch Hedberg's joke most likely to hold true? Explain your reasoning.
+    
+   
+    
+    
+    
